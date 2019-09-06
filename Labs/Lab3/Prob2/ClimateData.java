@@ -50,11 +50,14 @@ public class ClimateData extends Configured implements Tool
 			for(Pair pair:pairs){
 				Pair p = tempMap.get(key);
 				if(p!=null){
+					int temp = pair.getKey().get();
 					int count = pair.getValue().get();
+					temp+=p.getKey().get();
 					count+= p.getValue().get();
+					pair.setKey(new IntWritable(temp));
 					pair.setValue(new IntWritable(count));
 				}
-				System.out.println(key+":"+pair.getValue());
+				//System.out.println(key+":"+pair.getValue());
 				tempMap.put(key, pair);
 			}
 			context.write(key, tempMap.get(key));
